@@ -36,6 +36,8 @@ defmodule TheDancingPony.MixProject do
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
+      {:guardian, "~> 2.3.2"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:swoosh, "~> 1.5"},
       {:finch, "~> 0.13"},

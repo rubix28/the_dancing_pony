@@ -5,8 +5,27 @@ defmodule TheDancingPonyWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_auth do
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+
+    plug Guardian.Plug.LoadResource,
+      on_failure: {TheDancingPonyWeb.Auth.ErrorHandler, :auth_error}
+  end
+
+  # Public routes
   scope "/api", TheDancingPonyWeb do
     pipe_through :api
+
+    post "/users", UserController, :create
+    post "/sessions", SessionController, :create
+  end
+
+  # Protected routes
+  scope "/api", TheDancingPonyWeb do
+    pipe_through [:api, :api_auth]
+
+    # Add your protected routes here
+    # Example: get "/protected", SomeProtectedController, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

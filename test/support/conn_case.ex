@@ -28,6 +28,9 @@ defmodule TheDancingPonyWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import TheDancingPonyWeb.ConnCase
+
+      # Alias for route helpers
+      alias TheDancingPonyWeb.Router.Helpers, as: Routes
     end
   end
 

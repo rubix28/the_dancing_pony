@@ -22,6 +22,13 @@ config :the_dancing_pony, TheDancingPonyWeb.Endpoint,
   pubsub_server: TheDancingPony.PubSub,
   live_view: [signing_salt: "bmd7SpOK"]
 
+config :the_dancing_pony, TheDancingPony.Auth.Guardian,
+  issuer: "the_dancing_pony",
+  secret_key:
+    System.get_env("GUARDIAN_SECRET_KEY") ||
+      "YSz10i1xM9SmUG0MfiCMiqrR3/EzgtBKjtsLra3Ib6nA7LeyPzZoBFogoX5wOPKh",
+  error_handler: TheDancingPonyWeb.Auth.ErrorHandler
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
