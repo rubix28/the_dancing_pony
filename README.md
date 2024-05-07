@@ -14,37 +14,31 @@ It was designed with a Lord of Rings flavour in mind in exchange for a box of tr
 
 ### Installation
 1. Clone the repository:
-   ```
-   bash
+   ```bash
    git clone https://github.com/your-repository/TheDancingPony.git
    ```
 2. Navigate to the project directory:
-   ```
-   bash
+   ```bash
    cd TheDancingPony
    ```
 3. Install dependencies:
-   ```
-   bash
+   ```bash
    mix deps.get
    ```
 
 ### Setup Database
 1. Create and migrate your database:
-   ```
-   bash
+   ```bash
    mix ecto.setup
    ```
 
 ### Start the Application
 1. Start the Phoenix server:
-   ```
-   bash
+   ```bash
    mix phx.server
    ```
    Alternatively, you can run it inside IEx (Interactive Elixir) for a more interactive experience:
-   ```
-   bash
+   ```bash
    iex -S mix phx.server
    ```
 
@@ -60,27 +54,23 @@ It was designed with a Lord of Rings flavour in mind in exchange for a box of tr
    - Make a POST request to the `/api/users` endpoint with a user payload:
      ~~~json
      {
-      "user": {
-        "nickname": "Frodo",
-        "password": "theshire123"
-      }
-    }
+        "user": {
+           "nickname": "Frodo",
+           "password": "theshire123"
+        }
+     }
      ~~~
    - In the response, you'll receive a JWT. Copy this token to the Authorization tab as type "Bearer Token", or whatever your equivalent header is if you're not using Postman.
 
-4. **Making Authenticated Requests**:
-   - For any request that requires authentication, use the `Authorization` header.
-   - Set it to `Bearer {{token}}` where `{{token}}` utilizes the environment variable.
-
-5. **Test Endpoints**:
+4. **Test Endpoints**:
    - **Create Dish**: POST `/api/dishes`
      ~~~json
      {
-      "dish": {
-        "name": "Lembas",
-        "description": "Elven bread",
-        "price": "5.00"
-      }
+        "dish": {
+           "name": "Lembas",
+           "description": "Elven bread",
+           "price": "5.00"
+        }
      }
      ~~~
    - **Read Dish**: GET `/api/dishes/{id}`
@@ -88,22 +78,22 @@ It was designed with a Lord of Rings flavour in mind in exchange for a box of tr
    - **Update Dish**: PUT `/api/dishes/{id}`
      ~~~json
      {
-      "dish": {
-        "name": "New Lembas",
-        "description": "Elven bread",
-        "price": "5.50"
-      }
+        "dish": {
+           "name": "New Lembas",
+           "description": "Elven bread",
+           "price": "5.50"
+         }
      }
      ~~~
    - **Delete Dish**: DELETE `/api/dishes/{id}`
    - **Rate a Dish**: POST `/api/rate/`
      ~~~json
-    {
+     {
         "rating": {
-          "dish_id": 1,
-          "value": 5
+           "dish_id": 1,
+           "value": 5
         }
-    }
+     }
      ~~~
 
 This setup will allow you to test all aspects of the API, including secured endpoints that require authentication. Smeagol isn't allowed around here, see what happens if you create a user with that nickname and try to rate a dish!
@@ -119,7 +109,7 @@ This setup will allow you to test all aspects of the API, including secured endp
 - [x] Ensure users can only rate dishes, but only once
 - [x] Stop that dirty _Smeagol_ ruining our reviews (and introducing é into my codebase :P)
 - [x] Add automated test coverage
-- [] Nicer error messages in general (when unauthenticated or malformed request)
-- [] Add monitoring
-- [] Implement automated CI builds
-- [] Claim my promised treasure
+- [ ] Nicer error messages in general (when unauthenticated or malformed request)
+- [ ] Add monitoring
+- [ ] Implement automated CI builds
+- [ ] Claim my promised treasure
