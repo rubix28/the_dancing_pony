@@ -1,14 +1,14 @@
 defmodule TheDancingPonyWeb.Auth.ErrorHandler do
-  use Phoenix.Controller
+  import Plug.Conn
 
-  def auth_error(conn, {type, reason}, _opts) do
+  @behaviour Guardian.Plug.ErrorHandler
+
+  @impl Guardian.Plug.ErrorHandler
+  def auth_error(conn, {type, _reason}, _opts) do
+    body = to_string(type)
+
     conn
-    |> put_status(:unauthorized)
-    |> put_resp_content_type("application/json")
-    |> json(%{error: reason_to_error_message(type, reason)})
+    |> put_resp_content_type("text/plain")
+    |> send_resp(401, body)
   end
-
-  defp reason_to_error_message(:unauthenticated, _reason), do: "Authentication failed"
-  defp reason_to_error_message(:forbidden, _reason), do: "Forbidden access"
-  defp reason_to_error_message(_, _), do: "Access denied"
 end

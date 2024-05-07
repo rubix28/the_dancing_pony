@@ -15,7 +15,7 @@ defmodule TheDancingPony.Menu.Dish do
     dish
     |> cast(attrs, [:name, :description, :price])
     |> validate_required([:name, :description, :price])
-    |> unique_constraint(:name)
-    |> unique_constraint(:description)
+    |> unique_constraint(:name, name: :dish_name_unique)
+    |> unique_constraint(:description, name: :dish_description_unique)
   end
 end

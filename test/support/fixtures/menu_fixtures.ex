@@ -11,9 +11,9 @@ defmodule TheDancingPony.MenuFixtures do
     {:ok, dish} =
       attrs
       |> Enum.into(%{
-        description: "some description",
-        name: "some name",
-        price: "120.50"
+        name: "Cram",
+        description: "Dense bread used for long journeys",
+        price: Decimal.new("9.00")
       })
       |> TheDancingPony.Menu.create_dish()
 

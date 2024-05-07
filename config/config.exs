@@ -24,10 +24,11 @@ config :the_dancing_pony, TheDancingPonyWeb.Endpoint,
 
 config :the_dancing_pony, TheDancingPony.Auth.Guardian,
   issuer: "the_dancing_pony",
+  # Ideally, we don't use a fallback key here. However, I won't assume whoever is reading this
+  # has their environment variables set up ahead of time :)
   secret_key:
     System.get_env("GUARDIAN_SECRET_KEY") ||
-      "YSz10i1xM9SmUG0MfiCMiqrR3/EzgtBKjtsLra3Ib6nA7LeyPzZoBFogoX5wOPKh",
-  error_handler: TheDancingPonyWeb.Auth.ErrorHandler
+      "YSz10i1xM9SmUG0MfiCMiqrR3/EzgtBKjtsLra3Ib6nA7LeyPzZoBFogoX5wOPKh"
 
 # Configures the mailer
 #

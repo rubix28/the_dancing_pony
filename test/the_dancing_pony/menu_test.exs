@@ -15,6 +15,16 @@ defmodule TheDancingPony.MenuTest do
       assert Menu.list_dishes() == [dish]
     end
 
+    test "list_dishes/1 with name returns dishes with matching name" do
+      dish = dish_fixture()
+      assert Menu.list_dishes(%{name: "Cram"}) == [dish]
+    end
+
+    test "list_dishes/1 doesn't return dishes without a matching name" do
+      dish = dish_fixture()
+      assert Menu.list_dishes(%{name: "Spaghetti"}) == [dish]
+    end
+
     test "get_dish!/1 returns the dish with given id" do
       dish = dish_fixture()
       assert Menu.get_dish!(dish.id) == dish
@@ -27,6 +37,26 @@ defmodule TheDancingPony.MenuTest do
       assert dish.name == "some name"
       assert dish.description == "some description"
       assert dish.price == Decimal.new("120.5")
+    end
+
+    test "create_dish/1 prevents duplicates as needed" do
+      initial_params = %{name: "Lembas", description: "Elven bread", price: 5.00}
+      {:ok, _dish} = Menu.create_dish(initial_params)
+
+      duplicate_name = %{name: "Lembas", description: "Different description", price: 5.00}
+      assert {:error, changeset} = Menu.create_dish(duplicate_name)
+
+      assert changeset.errors[:name] ==
+               {"has already been taken",
+                [{:constraint, :unique}, {:constraint_name, "dish_name_unique"}]}
+
+      duplicate_description = %{name: "Different name", description: "Elven bread", price: 5.00}
+      assert {:error, changeset} = Menu.create_dish(duplicate_description)
+
+      assert changeset.errors[:description] == {
+               "has already been taken",
+               [{:constraint, :unique}, {:constraint_name, "dish_description_unique"}]
+             }
     end
 
     test "create_dish/1 with invalid data returns error changeset" do

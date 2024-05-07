@@ -2,7 +2,7 @@ defmodule TheDancingPonyWeb.UserController do
   use TheDancingPonyWeb, :controller
   alias TheDancingPony.Auth
   alias TheDancingPony.Auth.Guardian
-  alias TheDancingPonyWeb.ErrorJSON
+  alias TheDancingPonyWeb.ResponseHelper
 
   def create(conn, %{"user" => user_params}) do
     case Auth.create_user(user_params) do
@@ -14,7 +14,7 @@ defmodule TheDancingPonyWeb.UserController do
         conn
         |> put_status(:unprocessable_entity)
         |> json(%{
-          errors: ErrorJSON.translate_errors(changeset)
+          errors: ResponseHelper.translate_errors(changeset)
         })
     end
   end
