@@ -1,18 +1,116 @@
 # TheDancingPony
 
-To start your Phoenix server:
+## Overview
+TheDancingPony is a web application built using the Phoenix Framework, designed to manage a restaurant's menu, user authentication, and dish ratings. This application is ready for production with secure authentication mechanisms and a robust testing suite.
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+It was designed with a Lord of Rings flavour in mind in exchange for a box of treasure. No shady dealings concerning rings occurred in the creation of this codebase.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Getting Started
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+### Prerequisites
+- Elixir 1.16.2
+- Phoenix Framework (at least 1.7.2)
+- PostgreSQL
 
-## Learn more
+### Installation
+1. Clone the repository:
+   ```
+   bash
+   git clone https://github.com/your-repository/TheDancingPony.git
+   ```
+2. Navigate to the project directory:
+   ```
+   bash
+   cd TheDancingPony
+   ```
+3. Install dependencies:
+   ```
+   bash
+   mix deps.get
+   ```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+### Setup Database
+1. Create and migrate your database:
+   ```
+   bash
+   mix ecto.setup
+   ```
+
+### Start the Application
+1. Start the Phoenix server:
+   ```
+   bash
+   mix phx.server
+   ```
+   Alternatively, you can run it inside IEx (Interactive Elixir) for a more interactive experience:
+   ```
+   bash
+   iex -S mix phx.server
+   ```
+
+## Testing
+
+1. **Install Postman**: Download and install Postman from [postman.com](https://www.postman.com/downloads/).
+
+2. **Configure the Environment**:
+   - Create a new environment in Postman.
+   - With the server running, test against `http://localhost:4000` and ensure you've set `token` to be your JWT token placeholder.
+
+3. **Create a User**:
+   - Make a POST request to the `/api/users` endpoint with a user payload:
+     ~~~json
+     {
+       "nickname": "frodo",
+       "password": "shire123"
+     }
+     ~~~
+   - In the response, you'll receive a JWT. Copy this token.
+   - Set the `token` environment variable in Postman with this value.
+
+4. **Making Authenticated Requests**:
+   - For any request that requires authentication, use the `Authorization` header.
+   - Set it to `Bearer {{token}}` where `{{token}}` utilizes the environment variable.
+
+5. **Test Endpoints**:
+   - **Create Dish**: POST `/api/dishes`
+     ~~~json
+     {
+       "name": "Lembas",
+       "description": "Elven bread",
+       "price": "5.00"
+     }
+     ~~~
+   - **Read Dish**: GET `/api/dishes/{id}`
+   - **Update Dish**: PUT `/api/dishes/{id}`
+     ~~~json
+     {
+       "name": "Updated Lembas",
+       "description": "Updated description",
+       "price": "5.50"
+     }
+     ~~~
+   - **Delete Dish**: DELETE `/api/dishes/{id}`
+   - **Search Dishes by Name**: GET `/api/dishes?name=Lembas`
+   - **Rate a Dish**: POST `/api/dishes/{id}/rate`
+     ~~~json
+     {
+       "rating": 5
+     }
+     ~~~
+
+This setup will allow you to test all aspects of the API, including secured endpoints that require authentication. Smeagol isn't allowed around here, see what happens if you create a user with that nickname and try to rate a dish!
+
+## TODO
+- [x] Implement your classic REST API for The Dancing Pony
+- [x] Implement a custom user model with a "nickname" field
+- [x] Implement a dish model with name, description, and price
+  - [x] Ensure name and description fields are unique
+- [x] Provide an endpoint to authenticate with the API using username, password
+  - [x] Return a JWT for authentication in future requests
+- [x] Provide REST resources for the authenticated user for the Dish resource
+- [x] Ensure users can only rate dishes, but only once
+- [x] Stop that dirty _Smeagol_ ruining our reviews (and introducing é into my codebase :P)
+- [x] Add automated test coverage
+- [] Add monitoring
+- [] Implement automated CI builds
+- [] Claim my promised treasure

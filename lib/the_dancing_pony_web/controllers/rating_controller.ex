@@ -8,7 +8,7 @@ defmodule TheDancingPonyWeb.RatingController do
     current_user = Guardian.Plug.current_resource(conn)
 
     with user when not is_nil(user) <- current_user,
-         %{is_smeagol: false} <- %{is_smeagol: user.nickname == "Smeagol"},
+         %{is_smeagol: false} <- %{is_smeagol: String.downcase(user.nickname) == "smeagol"},
          {:ok, :not_exists} <- Menu.check_rating_exists?(user.id, rating_params["dish_id"]),
          {:ok, rating} <- Menu.create_rating(Map.put(rating_params, "user_id", user.id)) do
       conn
