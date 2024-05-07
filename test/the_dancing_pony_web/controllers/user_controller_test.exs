@@ -14,5 +14,11 @@ defmodule TheDancingPonyWeb.UserControllerTest do
       response = post(conn, Routes.user_path(conn, :create), params)
       assert json_response(response, 422)["errors"]
     end
+
+    test "makes you use a 'secure' password", %{conn: conn} do
+      params = %{user: %{nickname: "", password: "little"}}
+      response = post(conn, Routes.user_path(conn, :create), params)
+      assert json_response(response, 422)["errors"]
+    end
   end
 end

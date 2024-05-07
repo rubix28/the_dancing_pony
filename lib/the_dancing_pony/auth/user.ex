@@ -15,6 +15,8 @@ defmodule TheDancingPony.Auth.User do
     user
     |> cast(attrs, [:nickname, :password])
     |> validate_required([:nickname, :password])
+    # TODO: More secure requirements here
+    |> validate_length(:password, min: 8)
     |> unique_constraint(:nickname)
     |> put_password_hash()
   end
