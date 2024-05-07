@@ -4,6 +4,11 @@ defmodule TheDancingPonyWeb.RatingController do
   alias TheDancingPonyWeb.ResponseHelper
   alias TheDancingPony.{Menu, Auth.Guardian}
 
+  # Creates a rating for a dish, provided:
+  #   1) The user is authenticated
+  #   2) The user is not Smeagol
+  #   3) The user hasn't already rated the dish
+  #   4) The payload is in the correct format
   def create(conn, %{"rating" => rating_params}) do
     current_user = Guardian.Plug.current_resource(conn)
 

@@ -4,6 +4,8 @@ defmodule TheDancingPonyWeb.UserController do
   alias TheDancingPony.Auth.Guardian
   alias TheDancingPonyWeb.ResponseHelper
 
+  # Creates a user account, and provides a JWT token back if the operation
+  # is successful
   def create(conn, %{"user" => user_params}) do
     case Auth.create_user(user_params) do
       {:ok, user} ->
