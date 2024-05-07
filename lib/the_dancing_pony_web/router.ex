@@ -23,6 +23,6 @@ defmodule TheDancingPonyWeb.Router do
     pipe_through [:api, :api_auth]
 
     resources "/dishes", DishController, except: [:new, :edit]
-    resources "/ratings", RatingController, only: [:create]
+    resources "/rate", RatingController, only: [:create]
   end
 end

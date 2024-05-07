@@ -48,7 +48,7 @@ defmodule TheDancingPonyWeb.DishController do
     dish = Menu.get_dish!(id)
 
     with {:ok, _dish} <- Menu.delete_dish(dish) do
-      send_resp(conn, :no_content, "")
+      send_resp(conn, :no_content, "OK")
     else
       {:error, changeset} ->
         conn

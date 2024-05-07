@@ -54,18 +54,19 @@ It was designed with a Lord of Rings flavour in mind in exchange for a box of tr
 
 2. **Configure the Environment**:
    - Create a new environment in Postman.
-   - With the server running, test against `http://localhost:4000` and ensure you've set `token` to be your JWT token placeholder.
+   - With the server running, test against `http://localhost:4000`
 
 3. **Create a User**:
    - Make a POST request to the `/api/users` endpoint with a user payload:
      ~~~json
      {
-       "nickname": "frodo",
-       "password": "shire123"
-     }
+      "user": {
+        "nickname": "Frodo",
+        "password": "theshire123"
+      }
+    }
      ~~~
-   - In the response, you'll receive a JWT. Copy this token.
-   - Set the `token` environment variable in Postman with this value.
+   - In the response, you'll receive a JWT. Copy this token to the Authorization tab as type "Bearer Token", or whatever your equivalent header is if you're not using Postman.
 
 4. **Making Authenticated Requests**:
    - For any request that requires authentication, use the `Authorization` header.
@@ -75,27 +76,34 @@ It was designed with a Lord of Rings flavour in mind in exchange for a box of tr
    - **Create Dish**: POST `/api/dishes`
      ~~~json
      {
-       "name": "Lembas",
-       "description": "Elven bread",
-       "price": "5.00"
+      "dish": {
+        "name": "Lembas",
+        "description": "Elven bread",
+        "price": "5.00"
+      }
      }
      ~~~
    - **Read Dish**: GET `/api/dishes/{id}`
+   - **Search Dishes by Name**: GET `/api/dishes?name=Lembas`
    - **Update Dish**: PUT `/api/dishes/{id}`
      ~~~json
      {
-       "name": "Updated Lembas",
-       "description": "Updated description",
-       "price": "5.50"
+      "dish": {
+        "name": "New Lembas",
+        "description": "Elven bread",
+        "price": "5.50"
+      }
      }
      ~~~
    - **Delete Dish**: DELETE `/api/dishes/{id}`
-   - **Search Dishes by Name**: GET `/api/dishes?name=Lembas`
-   - **Rate a Dish**: POST `/api/dishes/{id}/rate`
+   - **Rate a Dish**: POST `/api/rate/`
      ~~~json
-     {
-       "rating": 5
-     }
+    {
+        "rating": {
+          "dish_id": 1,
+          "value": 5
+        }
+    }
      ~~~
 
 This setup will allow you to test all aspects of the API, including secured endpoints that require authentication. Smeagol isn't allowed around here, see what happens if you create a user with that nickname and try to rate a dish!
@@ -111,6 +119,7 @@ This setup will allow you to test all aspects of the API, including secured endp
 - [x] Ensure users can only rate dishes, but only once
 - [x] Stop that dirty _Smeagol_ ruining our reviews (and introducing é into my codebase :P)
 - [x] Add automated test coverage
+- [] Nicer error messages in general (when unauthenticated or malformed request)
 - [] Add monitoring
 - [] Implement automated CI builds
 - [] Claim my promised treasure
